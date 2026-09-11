@@ -835,6 +835,7 @@ body.show-float:not(.at-end) .wa-float{opacity:1;transform:none;pointer-events:a
   .photo-tag,.about-facade > span{background:rgba(8,13,26,0.86);}
   .js [data-reveal]{transform:translateY(14px);transition-duration:.5s;}
   .js [data-reveal="scale"]{transform:translateY(14px) scale(.98);}
+  .js .hero [data-reveal]{opacity:1;transform:none;transition:none;}
 }
 @media (max-width:720px),(pointer:coarse){
   .aurora{animation:none;}
