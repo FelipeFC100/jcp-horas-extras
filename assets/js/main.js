@@ -3,6 +3,8 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const mqMobile = window.matchMedia("(max-width: 720px)");
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
 
   /* ============ WhatsApp: uma mensagem por bloco ============ */
   const WA_NUMBER = "5561996275602";
@@ -19,7 +21,8 @@
     faq: "Olá! Li as perguntas frequentes no site de horas extras e fiquei com uma dúvida.",
     final: "Olá! Vim pelo site de horas extras e queria falar sobre o meu caso.",
     flutuante: "Olá! Vim pelo site de horas extras e queria falar com um advogado.",
-    "barra-mobile": "Olá! Vim pelo site de horas extras e queria falar com um advogado."
+    "barra-mobile": "Olá! Vim pelo site de horas extras e queria falar com um advogado.",
+    rodape: "Olá! Vim pelo site de horas extras e queria falar com um advogado."
   };
 
   /* Eventos de conversão: cada botão registra de qual bloco a pessoa saiu.
@@ -32,9 +35,9 @@
   };
 
   document.querySelectorAll("[data-wa]").forEach((a) => {
-    const key = a.dataset.wa;
-    if (MSG[key]) a.href = waLink(MSG[key]);
-    a.addEventListener("click", () => track("whatsapp_click", key));
+    if (MSG[a.dataset.wa]) a.href = waLink(MSG[a.dataset.wa]);
+    // lido na hora do clique: a barra mobile troca de bloco conforme a rolagem
+    a.addEventListener("click", () => track("whatsapp_click", a.dataset.wa));
   });
   document.querySelectorAll("[data-tel]").forEach((a) => {
     a.addEventListener("click", () => track("phone_click", a.dataset.tel));
@@ -42,7 +45,16 @@
 
   /* ============ Header ============ */
   const header = document.getElementById("siteHeader");
-  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 24);
+    // no celular o header some ao rolar para baixo e volta ao rolar para cima
+    if (!mqMobile.matches || y < 120) header.classList.remove("is-hidden");
+    else if (Math.abs(y - lastY) > 6) header.classList.toggle("is-hidden", y > lastY);
+    else return;
+    lastY = y;
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -125,6 +137,9 @@
     });
   }
 
+  /* a barra mobile se atualiza quando o checklist ou o contador mudam (definida mais abaixo) */
+  let refreshBar = () => {};
+
   /* ============ Bloco 02 — Autodiagnóstico ============ */
   const checks = [...document.querySelectorAll(".check-card")];
   const checkCount = document.getElementById("checkCount");
@@ -133,19 +148,23 @@
   const checkBtn = document.querySelector('[data-wa="sinais"]');
   const defaultCheckMsg = checkMsg.textContent;
 
+  const selectedChecks = () => checks.filter((c) => c.getAttribute("aria-pressed") === "true");
+  const sinaisMsg = () => {
+    const sel = selectedChecks();
+    return sel.length
+      ? `Olá! Vi a lista no site de horas extras e marquei o que acontece comigo:\n${sel.map((c) => "• " + c.dataset.item).join("\n")}\nQueria entender melhor.`
+      : MSG.sinais;
+  };
+
   const updateChecks = () => {
-    const sel = checks.filter((c) => c.getAttribute("aria-pressed") === "true");
-    const n = sel.length;
+    const n = selectedChecks().length;
     checkCount.textContent = n;
     checkBar.style.setProperty("--p", n / checks.length);
     if (n === 0) checkMsg.textContent = defaultCheckMsg;
     else if (n === 1) checkMsg.textContent = "Você marcou 1 item. Já é um sinal.";
     else checkMsg.textContent = `Você marcou ${n} itens. Manda o que marcou: em poucas linhas dá pra saber se há o que analisar.`;
-
-    const msg = n
-      ? `Olá! Vi a lista no site de horas extras e marquei o que acontece comigo:\n${sel.map((c) => "• " + c.dataset.item).join("\n")}\nQueria entender melhor.`
-      : MSG.sinais;
-    checkBtn.href = waLink(msg);
+    checkBtn.href = waLink(sinaisMsg());
+    refreshBar();
   };
   checks.forEach((c) => c.addEventListener("click", () => {
     c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true");
@@ -163,7 +182,7 @@
   const DIAS_POR_ANO = 240; // 20 dias trabalhados por mês
   const fmtHoras = (v) => (v < 1 ? "30 min" : Number.isInteger(v) ? `${v}h` : `${Math.floor(v)}h30`);
   const nf = new Intl.NumberFormat("pt-BR");
-  let shown = 720, tween = null;
+  let shown = 720, tween = null, contaTotal = 720, contaMsg = MSG.conta;
 
   const animateTo = (target) => {
     if (reduceMotion) { outTotal.textContent = nf.format(target); shown = target; return; }
@@ -191,14 +210,49 @@
     outDias.textContent = `≈ ${nf.format(dias)} dias inteiros de trabalho de 8 horas`;
     animateTo(total);
     fill(rH); fill(rA);
-    contaBtn.href = waLink(`Olá! Fiz a conta das horas no site: cerca de ${fmtHoras(h)} a mais por dia, durante ${outA.textContent}. Deu umas ${nf.format(total)} horas. Queria entender o meu caso.`);
+    contaTotal = total;
+    contaMsg = `Olá! Fiz a conta das horas no site: cerca de ${fmtHoras(h)} a mais por dia, durante ${outA.textContent}. Deu umas ${nf.format(total)} horas. Queria entender o meu caso.`;
+    contaBtn.href = waLink(contaMsg);
+    refreshBar();
   };
   [rH, rA].forEach((r) => r.addEventListener("input", updateCounter));
   updateCounter();
 
+  /* ============ Barra fixa mobile: rótulo e mensagem do bloco que está na tela ============ */
+  const bar = document.querySelector(".mb-wa");
+  const barLabel = bar && bar.querySelector(".mb-label");
+  if (bar && barLabel && "IntersectionObserver" in window) {
+    const BAR = {
+      sinais: () => {
+        const n = selectedChecks().length;
+        return [n ? `Enviar ${n} ${n === 1 ? "item marcado" : "itens marcados"}` : "Contar minha situação", sinaisMsg()];
+      },
+      prova: () => ["Perguntar sobre a prova", MSG.prova],
+      conta: () => [`Mandar minhas ${nf.format(contaTotal)} horas`, contaMsg],
+      prazo: () => ["Conferir meu prazo", MSG.prazo],
+      faq: () => ["Tirar minha dúvida", MSG.faq]
+    };
+    let current = null;
+    refreshBar = () => {
+      const [label, msg] = current ? BAR[current]() : ["Falar com advogado", MSG["barra-mobile"]];
+      barLabel.textContent = label;
+      bar.href = waLink(msg);
+      bar.dataset.wa = current ? `barra-${current}` : "barra-mobile";
+    };
+    // faixa fina no meio da tela: a seção que passa por ela é a "atual"
+    const bandIo = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) current = BAR[en.target.id] ? en.target.id : null;
+      });
+      refreshBar();
+    }, { rootMargin: "-50% 0px -50% 0px" });
+    document.querySelectorAll("main > section[id]").forEach((s) => bandIo.observe(s));
+  }
+
   /* ============ Hero — partículas douradas (canvas 2D leve) ============ */
   const canvas = document.getElementById("heroCanvas");
-  if (canvas && !reduceMotion && canvas.getContext) {
+  // no celular e com economia de dados as partículas ficam desligadas (bateria e 4G fraco)
+  if (canvas && !reduceMotion && !mqMobile.matches && !saveData && canvas.getContext) {
     const ctx = canvas.getContext("2d");
     const hero = canvas.closest(".hero");
     let w = 0, h = 0, parts = [], raf = 0, running = false, lastW = 0;

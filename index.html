@@ -15,9 +15,9 @@
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@500;600;700;800&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/barlow-condensed-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/yellowtail-latin.woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/dr-joao-cutout-640.webp" imagesrcset="assets/img/dr-joao-cutout-640.webp 640w, assets/img/dr-joao-cutout.webp 1080w" imagesizes="(max-width: 980px) 440px, 500px">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.replace('no-js','js');</script>
@@ -47,12 +47,12 @@
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
-    {"@type":"Question","name":"Eu assinei o cartão de ponto com o horário errado. Perdi o direito?","acceptedAnswer":{"@type":"Answer","text":"Não. Assinatura não transforma horário falso em jornada real, e ponto com horários idênticos todo dia costuma ser considerado inválido como prova. O que vale é a jornada que realmente foi cumprida."}},
-    {"@type":"Question","name":"Sou PJ ou MEI. Tenho direito a hora extra?","acceptedAnswer":{"@type":"Answer","text":"Se, na prática, havia horário, subordinação e pessoalidade, a relação pode ser de emprego, mesmo com nota fiscal — e aí toda a jornada entra na discussão."}},
-    {"@type":"Question","name":"Trabalhei sem carteira assinada. Dá para cobrar hora extra?","acceptedAnswer":{"@type":"Answer","text":"Dá. Nesse caso, o reconhecimento do vínculo e as horas extras são discutidos juntos, no mesmo processo."}},
-    {"@type":"Question","name":"Recebo por fora, ou parte do salário é “por produção”. Muda alguma coisa?","acceptedAnswer":{"@type":"Answer","text":"Muda a conta, não o direito. Valores pagos com habitualidade entram na base de cálculo, mesmo quando não aparecem no contracheque."}},
-    {"@type":"Question","name":"Preciso ir ao fórum? Vou ter que faltar ao trabalho?","acceptedAnswer":{"@type":"Answer","text":"Boa parte dos atos é eletrônica. Quando há audiência, você é avisado com antecedência e orientado sobre tudo — e a ausência para audiência trabalhista é justificada."}},
-    {"@type":"Question","name":"Como funcionam os honorários?","acceptedAnswer":{"@type":"Answer","text":"As condições são apresentadas de forma clara e por escrito na avaliação do seu caso, antes de qualquer contratação."}}
+    {"@type":"Question","name":"Eu assinei o cartão de ponto com o horário errado. Perdi o direito?","acceptedAnswer":{"@type":"Answer","text":"Não. Assinatura não torna real um horário falso, e ponto idêntico todo dia costuma ser inválido como prova."}},
+    {"@type":"Question","name":"Sou PJ ou MEI. Tenho direito a hora extra?","acceptedAnswer":{"@type":"Answer","text":"Se havia horário, subordinação e pessoalidade, pode ser vínculo de emprego, mesmo com nota fiscal."}},
+    {"@type":"Question","name":"Trabalhei sem carteira assinada. Dá para cobrar hora extra?","acceptedAnswer":{"@type":"Answer","text":"Dá. O vínculo e as horas extras são discutidos juntos, no mesmo processo."}},
+    {"@type":"Question","name":"Recebo por fora, ou parte do salário é “por produção”. Muda alguma coisa?","acceptedAnswer":{"@type":"Answer","text":"Muda a conta, não o direito. O que você recebia com frequência entra no cálculo, mesmo fora do contracheque."}},
+    {"@type":"Question","name":"Preciso ir ao fórum? Vou ter que faltar ao trabalho?","acceptedAnswer":{"@type":"Answer","text":"Quase tudo é eletrônico. Se houver audiência, você é avisado antes, e a falta ao trabalho é justificada."}},
+    {"@type":"Question","name":"Como funcionam os honorários?","acceptedAnswer":{"@type":"Answer","text":"As condições são explicadas por escrito na avaliação, antes de qualquer contratação."}}
   ]
 }
 </script>
@@ -136,15 +136,15 @@
             <span class="l">A empresa não pagou.</span>
             <span class="l">E ainda te convenceram de que você não tem como <em class="accent">provar</em>.</span>
           </h1>
-          <p class="lede">Ponto que marca sempre o mesmo horário não vale como prova. E, sem o registro real da jornada, a Justiça presume verdadeiro o horário que <strong>você</strong> afirma.</p>
+          <p class="lede">Ponto com horário sempre igual não vale como prova. Sem o registro real, vale o horário que <strong>você</strong> afirma.</p>
         </div>
         <div class="divider" aria-hidden="true"></div>
         <div class="hero-actions" id="heroActions">
           <a class="btn btn-primary" data-wa="hero" href="https://wa.me/5561996275602" target="_blank" rel="noopener">
-            <svg class="i"><use href="#i-wa"/></svg> Mandar meu caso no WhatsApp
+            <svg class="i"><use href="#i-wa"/></svg> <span>Mandar meu caso<span class="hide-sm"> no WhatsApp</span></span>
           </a>
-          <a class="btn btn-ghost" href="tel:+5561996275602" data-tel="hero">
-            <svg class="i"><use href="#i-phone"/></svg> Ligar para o escritório
+          <a class="btn btn-ghost btn-tel" href="tel:+5561996275602" data-tel="hero" aria-label="Ligar para o escritório">
+            <svg class="i"><use href="#i-phone"/></svg> <span class="hide-sm">Ligar para o escritório</span>
           </a>
         </div>
         <p class="micro">Quem responde é advogado, não robô.</p>
@@ -193,27 +193,27 @@
     <div class="checklist-grid" role="group" aria-label="Situações da sua rotina de trabalho">
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:0" data-item="Meu ponto marca sempre o mesmo horário">
         <span class="ico"><svg class="i"><use href="#i-card"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>Seu ponto marca sempre o mesmo horário, todo dia</p>
+        <p>Ponto sempre com o mesmo horário</p>
       </button>
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:1" data-item="Chego antes ou saio depois e o ponto não registra">
         <span class="ico"><svg class="i"><use href="#i-sunrise"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>Você chega antes ou sai depois, e o ponto não registra</p>
+        <p>Chega antes ou sai depois sem registro</p>
       </button>
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:2" data-item="Meu almoço de uma hora vira 20 minutos">
         <span class="ico"><svg class="i"><use href="#i-fork"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>O almoço de uma hora vira 20 minutos no próprio setor</p>
+        <p>Almoço de 1 hora que vira 20 minutos</p>
       </button>
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:3" data-item="Resolvo coisa da empresa no WhatsApp ou fico de plantão fora do horário">
         <span class="ico"><svg class="i"><use href="#i-chat"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>Resolve coisa da empresa no WhatsApp ou fica de plantão fora do horário</p>
+        <p>WhatsApp ou plantão fora do horário</p>
       </button>
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:4" data-item="Banco de horas que nunca zera ou domingo sem folga">
         <span class="ico"><svg class="i"><use href="#i-hourglass"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>Banco de horas que nunca zera, ou domingo trabalhado sem folga</p>
+        <p>Banco de horas que nunca zera</p>
       </button>
       <button type="button" class="check-card" aria-pressed="false" data-reveal style="--i:5" data-item="Me tiraram do ponto quando virei encarregado/gerente">
         <span class="ico"><svg class="i"><use href="#i-user-off"/></svg><span class="tick"><svg class="i"><use href="#i-check"/></svg></span></span>
-        <p>Tiraram você do ponto quando virou encarregado ou gerente</p>
+        <p>Tirado do ponto ao virar encarregado</p>
       </button>
     </div>
     <div class="checklist-foot" data-reveal>
@@ -238,7 +238,7 @@
         <span class="eyebrow">A dúvida que mais faz desistir</span>
         <h2 class="h2">“Mas eu não tenho prova nenhuma”</h2>
         <p class="lede">Na maioria das vezes, não é você quem tem que provar quanto trabalhou.</p>
-        <p>A empresa com mais de 20 empregados é obrigada a registrar a jornada. Se ela não apresenta esse registro no processo, presume-se verdadeiro o horário que você afirma.</p>
+        <p>Empresa com mais de 20 empregados deve registrar a jornada. Se não apresenta, vale o horário que você afirma.</p>
         <p>E ponto com horário sempre igual não serve como prova: não registra jornada nenhuma, registra um carimbo.</p>
       </div>
 
@@ -280,9 +280,9 @@
         <li data-reveal style="--i:5"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span>Colegas que faziam o mesmo turno</li>
       </ul>
       <div class="prova-close" data-reveal>
-        <p><strong>Não tem nada disso? Procure mesmo assim.</strong> Boa parte da prova está com a empresa, e o processo obriga ela a apresentar.</p>
+        <p><strong>Não tem nada disso?</strong> Tudo bem: boa parte da prova está com a empresa, e o processo obriga ela a apresentar.</p>
         <a class="btn btn-primary" data-wa="prova" href="https://wa.me/5561996275602" target="_blank" rel="noopener">
-          Entender onde está minha prova <svg class="i i-arrow"><use href="#i-arrow"/></svg>
+          Onde está minha prova? <svg class="i i-arrow"><use href="#i-arrow"/></svg>
         </a>
       </div>
     </div>
@@ -308,7 +308,7 @@
           <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>Aviso prévio e rescisão</li>
         </ul>
         <div class="edge-note">
-          <p><strong>Por isso, quem faz a conta decide o tamanho do caso.</strong> Aqui o cálculo é feito antes da petição — somos um dos poucos escritórios do DF especializados em cálculo trabalhista.</p>
+          <p><strong>Quem faz a conta decide o tamanho do caso.</strong> Aqui ela é feita antes da petição, por especialistas em cálculo trabalhista.</p>
         </div>
       </div>
 
@@ -350,7 +350,7 @@
       <div class="prazo-copy rail" data-reveal style="--rail-dot:26%">
         <span class="eyebrow">O relógio corre contra</span>
         <h2 class="h2">O prazo já está correndo</h2>
-        <p>Depois que o contrato acaba, você tem dois anos para entrar com a ação. E a cobrança só alcança os últimos cinco anos: a cada mês parado, o mês mais antigo sai da conta.</p>
+        <p>A cada mês parado, o mês mais antigo sai da conta. E, depois que o contrato acaba, o prazo para agir é de dois anos.</p>
         <p class="pull">Não é pressão de vendedor. É o calendário.</p>
         <a class="btn btn-primary" data-wa="prazo" href="https://wa.me/5561996275602" target="_blank" rel="noopener">
           <svg class="i"><use href="#i-wa"/></svg> Conferir meu prazo
@@ -368,7 +368,7 @@
         <div class="still" data-reveal style="--i:2">
           <svg class="i"><use href="#i-shield"/></svg>
           <div>
-            <p><strong>Ainda trabalha na empresa?</strong> Pode cobrar mesmo assim. Represália por causa de ação é ilegal, e o atendimento é sigiloso.</p>
+            <p><strong>Ainda trabalha lá?</strong> Pode cobrar mesmo assim. Represália é ilegal e o atendimento é sigiloso.</p>
             <a class="text-link" data-wa="ainda-trabalho" href="https://wa.me/5561996275602" target="_blank" rel="noopener">Entender minhas opções <svg class="i"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
@@ -404,11 +404,11 @@
                srcset="assets/img/equipe-escritorio-640.webp 640w, assets/img/equipe-escritorio.webp 1080w"
                sizes="(max-width: 980px) 480px, 460px" width="1080" height="1440" loading="lazy"
                alt="Dr. João Filipe de Carvalho e equipe no escritório João de Carvalho &amp; Pêgo Advocacia">
-          <figcaption class="photo-tag"><svg class="i"><use href="#i-scale"/></svg>Dr. João Filipe de Carvalho e equipe</figcaption>
+          <figcaption class="photo-tag"><svg class="i"><use href="#i-scale"/></svg><span>Dr. João<span class="hide-sm"> Filipe de Carvalho</span> e equipe</span></figcaption>
         </figure>
         <div class="about-facade">
           <img src="assets/img/fachada-escritorio.webp" width="1200" height="674" loading="lazy" alt="Dr. João em frente à fachada do escritório, 2º andar, sala 202">
-          <span>Sede · Cidade Estrutural, Setor Leste</span>
+          <span>Sede · <span class="hide-sm">Cidade </span>Estrutural<span class="hide-sm">, Setor Leste</span></span>
         </div>
       </div>
       <div class="about-body" data-reveal>
@@ -419,7 +419,7 @@
           <div class="stat"><b>3 mil+</b><span>famílias atendidas</span></div>
           <div class="stat"><b>DF</b><span>atendimento presencial e online</span></div>
         </div>
-        <p>A gente atende na Cidade Estrutural, Setor Leste, e você pode vir pessoalmente. Atendimento direto, sem juridiquês: você fala com quem cuida do seu processo.</p>
+        <p>Atendimento presencial no Setor Leste da Estrutural. Você fala direto com quem cuida do seu processo.</p>
         <div class="signature">
           <img src="assets/img/dr-joao-avatar.webp" width="64" height="64" loading="lazy" alt="">
           <div>
@@ -451,27 +451,27 @@
       <div class="faq-list">
         <div class="faq-item is-open" data-reveal style="--i:0">
           <button class="faq-q" type="button" aria-expanded="true" aria-controls="fa1" id="fq1"><span>Eu assinei o cartão de ponto com o horário errado. Perdi o direito?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa1" role="region" aria-labelledby="fq1"><div><p>Não. Assinatura não transforma horário falso em jornada real, e ponto com horários idênticos todo dia costuma ser considerado inválido como prova. O que vale é a jornada que realmente foi cumprida.</p></div></div>
+          <div class="faq-a" id="fa1" role="region" aria-labelledby="fq1"><div><p>Não. Assinatura não torna real um horário falso, e ponto idêntico todo dia costuma ser inválido como prova.</p></div></div>
         </div>
         <div class="faq-item" data-reveal style="--i:1">
           <button class="faq-q" type="button" aria-expanded="false" aria-controls="fa2" id="fq2"><span>Sou PJ ou MEI. Tenho direito a hora extra?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa2" role="region" aria-labelledby="fq2"><div><p>Se, na prática, havia horário, subordinação e pessoalidade, a relação pode ser de emprego, mesmo com nota fiscal — e aí toda a jornada entra na discussão.</p></div></div>
+          <div class="faq-a" id="fa2" role="region" aria-labelledby="fq2"><div><p>Se havia horário, subordinação e pessoalidade, pode ser vínculo de emprego, mesmo com nota fiscal.</p></div></div>
         </div>
         <div class="faq-item" data-reveal style="--i:2">
           <button class="faq-q" type="button" aria-expanded="false" aria-controls="fa3" id="fq3"><span>Trabalhei sem carteira assinada. Dá para cobrar hora extra?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa3" role="region" aria-labelledby="fq3"><div><p>Dá. Nesse caso, o reconhecimento do vínculo e as horas extras são discutidos juntos, no mesmo processo.</p></div></div>
+          <div class="faq-a" id="fa3" role="region" aria-labelledby="fq3"><div><p>Dá. O vínculo e as horas extras são discutidos juntos, no mesmo processo.</p></div></div>
         </div>
         <div class="faq-item" data-reveal style="--i:3">
           <button class="faq-q" type="button" aria-expanded="false" aria-controls="fa4" id="fq4"><span>Recebo por fora, ou parte do salário é “por produção”. Muda alguma coisa?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa4" role="region" aria-labelledby="fq4"><div><p>Muda a conta, não o direito. Valores pagos com habitualidade entram na base de cálculo, mesmo quando não aparecem no contracheque.</p></div></div>
+          <div class="faq-a" id="fa4" role="region" aria-labelledby="fq4"><div><p>Muda a conta, não o direito. O que você recebia com frequência entra no cálculo, mesmo fora do contracheque.</p></div></div>
         </div>
         <div class="faq-item" data-reveal style="--i:4">
           <button class="faq-q" type="button" aria-expanded="false" aria-controls="fa5" id="fq5"><span>Preciso ir ao fórum? Vou ter que faltar ao trabalho?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa5" role="region" aria-labelledby="fq5"><div><p>Boa parte dos atos é eletrônica. Quando há audiência, você é avisado com antecedência e orientado sobre tudo — e a ausência para audiência trabalhista é justificada.</p></div></div>
+          <div class="faq-a" id="fa5" role="region" aria-labelledby="fq5"><div><p>Quase tudo é eletrônico. Se houver audiência, você é avisado antes, e a falta ao trabalho é justificada.</p></div></div>
         </div>
         <div class="faq-item" data-reveal style="--i:5">
           <button class="faq-q" type="button" aria-expanded="false" aria-controls="fa6" id="fq6"><span>Como funcionam os honorários?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-a" id="fa6" role="region" aria-labelledby="fq6"><div><p>As condições são apresentadas de forma clara e por escrito na avaliação do seu caso, antes de qualquer contratação.</p></div></div>
+          <div class="faq-a" id="fa6" role="region" aria-labelledby="fq6"><div><p>As condições são explicadas por escrito na avaliação, antes de qualquer contratação.</p></div></div>
         </div>
       </div>
     </div>
@@ -488,7 +488,7 @@
         <p class="lede">Mandar uma mensagem não é contratar advogado. É entender o que você tem em mãos antes de decidir qualquer coisa.</p>
         <div class="cta-actions">
           <a class="btn btn-primary" data-wa="final" href="https://wa.me/5561996275602" target="_blank" rel="noopener">
-            <svg class="i"><use href="#i-wa"/></svg> Falar com um advogado no WhatsApp
+            <svg class="i"><use href="#i-wa"/></svg> <span>Falar com advogado<span class="hide-sm"> no WhatsApp</span></span>
           </a>
           <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Jo%C3%A3o%20de%20Carvalho%20%26%20P%C3%AAgo%20Advocacia%2C%20Setor%20Leste%2C%20Cidade%20Estrutural%2C%20Bras%C3%ADlia%20-%20DF" target="_blank" rel="noopener">
             <svg class="i"><use href="#i-map"/></svg> Ver como chegar
@@ -530,9 +530,13 @@
         <h4>Sede</h4>
         <p>Qd 1, Conjunto 1, Lote 25, Sala 202<br>Setor Leste, Cidade Estrutural, Brasília/DF</p>
       </div>
-      <div>
+      <div class="footer-contato">
         <h4>Contato</h4>
-        <p><a href="tel:+5561996275602" data-tel="rodape">WhatsApp: (61) 99627-5602</a><br><a href="mailto:joaofilipemc@gmail.com">joaofilipemc@gmail.com</a></p>
+        <p class="footer-contact">
+          <a data-wa="rodape" href="https://wa.me/5561996275602" target="_blank" rel="noopener">WhatsApp: (61) 99627-5602</a>
+          <a href="tel:+5561996275602" data-tel="rodape">Ligar: (61) 99627-5602</a>
+          <a href="mailto:joaofilipemc@gmail.com">joaofilipemc@gmail.com</a>
+        </p>
       </div>
       <div>
         <h4>Unidades</h4>
@@ -551,7 +555,7 @@
   <svg class="i"><use href="#i-wa"/></svg>
 </a>
 <div class="mobile-bar" aria-label="Atalhos de contato">
-  <a class="mb-wa" data-wa="barra-mobile" href="https://wa.me/5561996275602" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Falar com advogado no WhatsApp</a>
+  <a class="mb-wa" data-wa="barra-mobile" href="https://wa.me/5561996275602" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg><span class="mb-label">Falar com advogado</span></a>
   <a class="mb-tel" href="tel:+5561996275602" data-tel="barra-mobile" aria-label="Ligar para o escritório"><svg class="i"><use href="#i-phone"/></svg></a>
 </div>
 
