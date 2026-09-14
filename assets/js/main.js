@@ -7,13 +7,13 @@
   const saveData = !!(navigator.connection && navigator.connection.saveData);
 
   /* ============ WhatsApp: uma mensagem por bloco ============ */
-  const WA_NUMBER = "5561996275602";
+  const WA_NUMBER = "5561982533524";
   const waLink = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
   const MSG = {
     header: "Olá! Vim pelo site de horas extras e queria falar sobre o meu caso.",
     hero: "Olá! Vim pelo site de horas extras e queria falar sobre o meu caso.",
-    sinais: "Olá! Vi a lista no site e marquei várias coisas que acontecem comigo. Queria entender melhor.",
+    sinais: "Olá! Vi a lista no site de horas extras e algumas situações acontecem comigo. Queria entender melhor.",
     prova: "Olá! Li a parte sobre prova de jornada no site. Não sei se tenho prova e queria saber como funciona.",
     conta: "Olá! Fiz a conta das horas no site e queria entender o meu caso.",
     prazo: "Olá! Queria saber se ainda estou no prazo para cobrar horas extras.",
@@ -137,39 +137,8 @@
     });
   }
 
-  /* a barra mobile se atualiza quando o checklist ou o contador mudam (definida mais abaixo) */
+  /* a barra mobile se atualiza quando o contador muda (definida mais abaixo) */
   let refreshBar = () => {};
-
-  /* ============ Bloco 02 — Autodiagnóstico ============ */
-  const checks = [...document.querySelectorAll(".check-card")];
-  const checkCount = document.getElementById("checkCount");
-  const checkMsg = document.getElementById("checkMsg");
-  const checkBar = document.getElementById("checkBar");
-  const checkBtn = document.querySelector('[data-wa="sinais"]');
-  const defaultCheckMsg = checkMsg.textContent;
-
-  const selectedChecks = () => checks.filter((c) => c.getAttribute("aria-pressed") === "true");
-  const sinaisMsg = () => {
-    const sel = selectedChecks();
-    return sel.length
-      ? `Olá! Vi a lista no site de horas extras e marquei o que acontece comigo:\n${sel.map((c) => "• " + c.dataset.item).join("\n")}\nQueria entender melhor.`
-      : MSG.sinais;
-  };
-
-  const updateChecks = () => {
-    const n = selectedChecks().length;
-    checkCount.textContent = n;
-    checkBar.style.setProperty("--p", n / checks.length);
-    if (n === 0) checkMsg.textContent = defaultCheckMsg;
-    else if (n === 1) checkMsg.textContent = "Você marcou 1 item. Já é um sinal.";
-    else checkMsg.textContent = `Você marcou ${n} itens. Manda o que marcou: em poucas linhas dá pra saber se há o que analisar.`;
-    checkBtn.href = waLink(sinaisMsg());
-    refreshBar();
-  };
-  checks.forEach((c) => c.addEventListener("click", () => {
-    c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") === "true" ? "false" : "true");
-    updateChecks();
-  }));
 
   /* ============ Bloco 04 — Contador de horas (tempo, nunca valores) ============ */
   const rH = document.getElementById("rangeHoras");
@@ -223,10 +192,7 @@
   const barLabel = bar && bar.querySelector(".mb-label");
   if (bar && barLabel && "IntersectionObserver" in window) {
     const BAR = {
-      sinais: () => {
-        const n = selectedChecks().length;
-        return [n ? `Enviar ${n} ${n === 1 ? "item marcado" : "itens marcados"}` : "Contar minha situação", sinaisMsg()];
-      },
+      sinais: () => ["Contar minha situação", MSG.sinais],
       prova: () => ["Perguntar sobre a prova", MSG.prova],
       conta: () => [`Mandar minhas ${nf.format(contaTotal)} horas`, contaMsg],
       prazo: () => ["Conferir meu prazo", MSG.prazo],
